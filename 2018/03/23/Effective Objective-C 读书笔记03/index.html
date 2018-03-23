@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS, 迷途小书僮" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="23 . 通过委托与数据源协议进行对象间通信给委托对象发送消息，那么必须提前判断该对象是否存在和该委托对象是否实现了该消息：123456NSData *data = /* data obtained from network */;if ( (_delegate) &amp;amp;&amp;amp; ([_delegate respondsToSelector: @selector(networkFetcher">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective Objective-C 读书笔记03">
+<meta property="og:url" content="http://yoursite.com/2018/03/23/Effective Objective-C 读书笔记03/index.html">
+<meta property="og:site_name" content="迷途小书僮">
+<meta property="og:description" content="23 . 通过委托与数据源协议进行对象间通信给委托对象发送消息，那么必须提前判断该对象是否存在和该委托对象是否实现了该消息：123456NSData *data = /* data obtained from network */;if ( (_delegate) &amp;amp;&amp;amp; ([_delegate respondsToSelector: @selector(networkFetcher">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2063843-a324ab173af80abf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2063843-a2841e1814a8ab4f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2063843-e7567bf66484c753.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2063843-8d034da52df84c52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2063843-e3b82807d2b745dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-23T06:38:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Effective Objective-C 读书笔记03">
+<meta name="twitter:description" content="23 . 通过委托与数据源协议进行对象间通信给委托对象发送消息，那么必须提前判断该对象是否存在和该委托对象是否实现了该消息：123456NSData *data = /* data obtained from network */;if ( (_delegate) &amp;amp;&amp;amp; ([_delegate respondsToSelector: @selector(networkFetcher">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2063843-a324ab173af80abf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '迷途小书僮'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/23/Effective Objective-C 读书笔记03/"/>
+
+
+
+
+
+  <title>Effective Objective-C 读书笔记03 | 迷途小书僮</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">迷途小书僮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/Effective Objective-C 读书笔记03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="迷途小书僮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/picture.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="迷途小书僮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Effective Objective-C 读书笔记03</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T10:55:40+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="23-通过委托与数据源协议进行对象间通信"><a href="#23-通过委托与数据源协议进行对象间通信" class="headerlink" title="23 . 通过委托与数据源协议进行对象间通信"></a>23 . 通过委托与数据源协议进行对象间通信</h5><p>给委托对象发送消息，那么必须提前判断该对象是否存在和该委托对象是否实现了该消息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NSData *data = /* data obtained from network */;</span><br><span class="line"></span><br><span class="line">if ( (_delegate) &amp;&amp; ([_delegate respondsToSelector: @selector(networkFetcher:didReceiveData:)]))</span><br><span class="line">&#123;</span><br><span class="line">[_delegate networkFetcher:self didReceiveData:data];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>在开发中如果需要频繁的响应某一个代理方法 ，就需要不断的进行判断<code>respondsToSelector:</code>除了第一次的检测结果有用外，后续的检测可能都是多余的。</p>
+</blockquote>
+<blockquote>
+<p>如果委托对象本身没变，那么不太可能会突然响应某个原来不能响应的选择子，也不会突然无法响应某个原来可以响应的选择子。</p>
+</blockquote>
+<blockquote>
+<p>所以,我们通常把委托对象能否响应某个协议方法这一信息缓存起来，已优化程序效率。</p>
+</blockquote>
+<p>使用”位段”数据类型，将方法响应能以缓存起来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@interface EOCNetworkingFetcher ()</span><br><span class="line">struct &#123;</span><br><span class="line">unsigned int didReceiveData : 1;</span><br><span class="line">unsigned int didFailWithError : 1;</span><br><span class="line">unsigned int didUpdateProgressTo : 1;</span><br><span class="line">&#125; _delegateFlags</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">//使用</span><br><span class="line">//set flag</span><br><span class="line">_delageteFlags.didReceiveData = 1;</span><br><span class="line"></span><br><span class="line">//check flag</span><br><span class="line">if(_delageteFlags.didReceiveData)&#123;</span><br><span class="line">//YES</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>委托模式:对象把应对某个行为的责任委托给了另一类。</li>
+</ul>
+<p>也可以用协议定义一套接口，令某类经由该接口获取所需的数据。委托模式的这一用法旨在向类提供数据，故而又称”数据源模式”。</p>
+<blockquote>
+<p>在此模式中，信息从数据源流向类，而在常规委托模式中，信息则从类流向受委托者.</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2063843-a324ab173af80abf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="普通的委托 | 信息源.png"></p>
+<blockquote>
+<p>笔者个人理解为:<br>UITableView中的<code>UITableViewDataSource (利用代理获取相关属性)和 UITableViewDelegate(利用代理响应相关交互行为)</code>即代表两种不同的代理模式,这两个信息的传递方向是相反的。</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>委托模式为对象提供了一套接口，使其可由此将相关事件告知其他对象。<ul>
+<li>将委托对象应该支持的接口定义成协议，在协议中把可能需要处理的事件定义成方法。</li>
+<li>当某对象需要从另外一个对象中获取数据时，可以使用委托模式。这种情境下，该模式亦称 “数据源协议”（data source protocal）。</li>
+<li>若有必要，可实现含有位段的结构体，将委托对象是否能响应相关协议方法这一信息缓存至其中</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h5 id="24-将类的实现代码分散到便于管理的数个分类中"><a href="#24-将类的实现代码分散到便于管理的数个分类中" class="headerlink" title="24 .将类的实现代码分散到便于管理的数个分类中"></a>24 .将类的实现代码分散到便于管理的数个分类中</h5><p>类中经常容易填满各种方法，而这些方法的代码则全部堆在一个巨大实现文件里。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface EOCPerson : NSObject</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy, readonly) NSString *firstName;</span><br><span class="line">@property (nonatomic, copy, readonly) NSString *lastName;</span><br><span class="line">@property (nonatomic, strong, readonly) NSArray *friends;</span><br><span class="line"></span><br><span class="line">- (id)initWithFirstName:(NSString*)firstName andLastName:(NSString*)lastName;</span><br><span class="line"></span><br><span class="line">/* Friendship methods */</span><br><span class="line">- (void)addFriend:(EOCPerson*)person;</span><br><span class="line">- (void)removeFriend:(EOCPerson*)person;</span><br><span class="line">- (BOOL)isFriendsWith:(EOCPerson*)person;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/* Work methods */</span><br><span class="line">- (void)performDaysWork;</span><br><span class="line">- (void)takeVacationFromWork;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/* Play methods */</span><br><span class="line">- (void)goToTheCinema;</span><br><span class="line">- (void)goToSportsGame;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>在此情况下，可以通过Objective-C的“分类”机制，把类代码按逻辑划入几个分区中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@interface EOCPerson : NSObject</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy, readonly) NSString *firstName;</span><br><span class="line">@property (nonatomic, copy, readonly) NSString *lastName;</span><br><span class="line">@property (nonatomic, strong, readonly) NSArray *friends;</span><br><span class="line"></span><br><span class="line">- (id)initWithFirstName:(NSString*)firstName</span><br><span class="line"></span><br><span class="line">andLastName:(NSString*)lastName;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@interface EOCPerson (Friendship)</span><br><span class="line"></span><br><span class="line">- (void)addFriend:(EOCPerson*)person;</span><br><span class="line">- (void)removeFriend:(EOCPerson*)person;</span><br><span class="line">- (BOOL)isFriendsWith:(EOCPerson*)person;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@interface EOCPerson (Work)</span><br><span class="line"></span><br><span class="line">- (void)performDaysWork;</span><br><span class="line">- (void)takeVacationFromWork;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@interface EOCPerson (Play)</span><br><span class="line"></span><br><span class="line">- (void)goToTheCinema;</span><br><span class="line">- (void)goToSportsGame;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>其中，FriendShip分类的实现代码可以这么写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// EOCPerson+Friendship.h</span><br><span class="line">#import &quot;EOCPerson.h&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@interface EOCPerson (Friendship)</span><br><span class="line"></span><br><span class="line">- (void)addFriend:(EOCPerson*)person;</span><br><span class="line">- (void)removeFriend:(EOCPerson*)person;</span><br><span class="line">- (BOOL)isFriendsWith:(EOCPerson*)person;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// EOCPerson+Friendship.m</span><br><span class="line">#import &quot;EOCPerson+Friendship.h&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation EOCPerson (Friendship)</span><br><span class="line"></span><br><span class="line">- (void)addFriend:(EOCPerson*)person &#123;</span><br><span class="line">/* ... */</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)removeFriend:(EOCPerson*)person &#123;</span><br><span class="line">/* ... */</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)isFriendsWith:(EOCPerson*)person &#123;</span><br><span class="line">/* ... */</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：在新建分类文件时，一定要引入被分类的类文件。</p>
+</blockquote>
+<ul>
+<li><p>通过分类机制，可以把类代码分成很多个易于管理的功能区，同时也便于调试。因为分类的方法名称会包含分类的名称，可以马上看到该方法属于哪个分类中。</p>
+</li>
+<li><p>利用这一点，我们可以创建名为Private的分类，将所有私有方法都放在该类里。这样一来，我们就可以根据private一词的出现位置来判断调用的合理性，这也是一种编写“自我描述式代码（self-documenting）”的办法。</p>
+</li>
+</ul>
+<h5 id="25-总是为第三方类的分类名称加前缀"><a href="#25-总是为第三方类的分类名称加前缀" class="headerlink" title="25 .总是为第三方类的分类名称加前缀"></a>25 .总是为第三方类的分类名称加前缀</h5><p>分类机制虽然强大，但是如果分类里的方法与原来的方法名称一致，那么分类的方法就会覆盖掉原来的方法，而且总是以最后一次被覆盖为基准。</p>
+<p>因此，我们应该以命名空间来区别各个分类的名称与其中定义的方法。在OC里的做法就是给这些方法加上某个共用的前缀。<br>例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@interface NSString (ABC_HTTP)</span><br><span class="line"></span><br><span class="line">// Encode a string with URL encoding</span><br><span class="line">- (NSString*)abc_urlEncodedString;</span><br><span class="line"></span><br><span class="line">// Decode a URL encoded string</span><br><span class="line">- (NSString*)abc_urlDecodedString;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>因此，如果我们想给第三方库或者iOS框架里的类添加分类时，最好将分类名和方法名加上专用前缀</p>
+<h5 id="26-勿在分类中声明属性"><a href="#26-勿在分类中声明属性" class="headerlink" title="26 .勿在分类中声明属性"></a>26 .勿在分类中声明属性</h5><p>属性是封装数据的方式。尽管技术上在分类中可以声明属性，但这种做法还是尽量避免，除了“class -continuation 分类”之外，其他分类都无法向类中新增实例变量，它们无法把实现属性所需的实例比安康合成出来。</p>
+<p>也许，我们会想到使用消息转发机制和关联对象实现存取方法，这样做内存管理问题上容易出错，需要在设置方法中修改设置关联对象时所用的内存管理语义。</p>
+<blockquote>
+<ul>
+<li>分类机制，目标在于扩展类的功能，而不是封装数据。</li>
+<li>把封装数据所用的全部属性都定义在主接口里。</li>
+<li>在”class-continuation 分类”，之外的其他分类中，可以定义存取方法，但尽量不要定义属性。</li>
+</ul>
+</blockquote>
+<h5 id="27-使用class-continuation分类-隐藏实现细节"><a href="#27-使用class-continuation分类-隐藏实现细节" class="headerlink" title="27. 使用class-continuation分类 隐藏实现细节"></a>27. 使用class-continuation分类 隐藏实现细节</h5><p>我们需要减少在公共接口中向外暴露的部分(包括属性和方法)，而因此带给我们的局限性可以利用class-continuation分类的特性来补偿：</p>
+<blockquote>
+<ul>
+<li>可以在class-continuation分类中增加实例变量。</li>
+<li>可以在class-continuation分类中将公共接口的只读属性设置为读写。</li>
+<li>可以在class-continuation分类中遵循协议，使其不为人知。</li>
+</ul>
+</blockquote>
+<h5 id="28-通过协议提供匿名对象"><a href="#28-通过协议提供匿名对象" class="headerlink" title="28.  通过协议提供匿名对象"></a>28.  通过协议提供匿名对象</h5><p>匿名对象（Annonymous object），可以理解为“没有名字的对象”。有时我们用协议来提供匿名对象，目的在于说明它仅仅表示“遵从某个协议的对象”，而不是“属于某个类的对象”</p>
+<p>它的表示方法为：<code>id&lt;protocol&gt;</code></p>
+<p>通过协议提供匿名对象的主要使用场景有两个：</p>
+<ul>
+<li>作为属性</li>
+<li>作为方法参数</li>
+</ul>
+<h6 id="A-匿名对象作为属性"><a href="#A-匿名对象作为属性" class="headerlink" title="A. 匿名对象作为属性"></a>A. 匿名对象作为属性</h6><p>在设定某个类为自己的代理属性时，可以不声明代理的类，而是用id<protocol>，因为成为代理的终点<strong>并不是某个类的实例，而是遵循了某个协议。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, weak) id &lt;EOCDelegate&gt; delegate;</span><br></pre></td></tr></table></figure></protocol></p>
+<ul>
+<li><ol>
+<li>将来可能会有很多不同类的实例对象作为该类的代理。</li>
+</ol>
+</li>
+<li><ol>
+<li>我们不想指明具体要使用哪个类来作为这个类的代理。<br>也就是说，能作为该类的代理的条件只有一个：<strong>它遵从了 <eocdelegate>协议。</eocdelegate></strong></li>
+</ol>
+</li>
+</ul>
+<p>######B. 匿名对象作为方法参数<br>有时，我们不会在意方法里某个参数的具体类型，而是遵循了某种协议，这个时候就可以使用匿名对象来作为方法参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)setObject:(id)object forKey:(id&lt;NSCopying&gt;)key;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法是NSDictionary的设值方法，它的参数只要遵从了<nscopying>协议，就可以作为参数传进去,作为NSDictionary的键。</nscopying></p>
+<blockquote>
+<ul>
+<li>协议在某种程度上提供匿名类型。具体的对象类型可以淡化成遵守某协议的id类型，协议里规定了对象方法缩影实现的方法。</li>
+<li>使用匿名对象来隐藏类型名称。</li>
+<li>如果具体类型不重要，重要的是对象能够响应(定义在协议里的)特定方法，那么可使用匿名对象来表示。</li>
+</ul>
+</blockquote>
+<h5 id="29-理解引用计数"><a href="#29-理解引用计数" class="headerlink" title="29. 理解引用计数"></a>29. 理解引用计数</h5><p>iOS系统已经支持了自动引用计数，但开发者仍然需要了解其内存管理机制，以便开发出健壮优美的程序。</p>
+<p>######A.计数器的操作：</p>
+<ul>
+<li>retain：递增引用计数。</li>
+<li>release：递减引用计数</li>
+<li>autorelease ：待稍后清理“自动释放池时”，再递减引用计数。<blockquote>
+<p>在对象初始化后，引用计数不一定是1，还有可能大于1。因为在初始化方法的实现中，或许还有其他的操作使得引用计数+1，例如其他的对象也保留了此对象。</p>
+</blockquote>
+</li>
+</ul>
+<p>我们无法确定在某个操作后引用计数的确切值，而只能判断这个操作是递增还是递减了引用计数。</p>
+<h5 id="B-自动释放池："><a href="#B-自动释放池：" class="headerlink" title="B.自动释放池："></a>B.自动释放池：</h5><p>将对象放入自动释放池之后，不会马上使其引用计数-1，而是在当前线程的下一次事件循环时递减。</p>
+<p>如果我们想释放当前需要使用的方法返回值是，可以将其暂时放在自动释放池中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (NSString*)stringValue &#123;</span><br><span class="line">NSString *str = [[NSString alloc] initWithFormat:@&quot;I am this: %@&quot;, self];</span><br><span class="line">return [str autorelease];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="C-保留环（retain-cycle）"><a href="#C-保留环（retain-cycle）" class="headerlink" title="C.保留环（retain cycle）"></a>C.保留环（retain cycle）</h5><p>对象之间相互用强引用指向对方，会使得全部都无法得以释放。解决方案是讲其中一端的引用改为弱引用（weak reference），在引用的同时不递增引用计数。</p>
+<h5 id="30-以ARC简化引用计数"><a href="#30-以ARC简化引用计数" class="headerlink" title="30. 以ARC简化引用计数"></a>30. 以ARC简化引用计数</h5><p>使用ARC，可以省略对于引用计数的操作，让开发者专注于开发本身：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if ([self shouldLogMessage]) &#123;</span><br><span class="line">NSString *message = [[NSString alloc] initWithFormat:@&quot;I am object, %p&quot;, self];</span><br><span class="line">NSLog(@&quot;message = %@&quot;, message);</span><br><span class="line">[message release]; ///&lt; Added by ARC</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>显然这里我们不需要message对象了，那么ARC会自动为我们添加内存管理的语句。</p>
+</blockquote>
+<p>在ARC环境下调用内存管理语句是非法的：</p>
+<ul>
+<li>retain</li>
+<li>release</li>
+<li>autorelease</li>
+<li>dealloc</li>
+</ul>
+<blockquote>
+<p>注意：ARC只负责管理OC对象的内存，CoreFoundation对象不归ARC管理</p>
+</blockquote>
+<h5 id="31-在dealloc方法中只释放引用并解除监听"><a href="#31-在dealloc方法中只释放引用并解除监听" class="headerlink" title="31. 在dealloc方法中只释放引用并解除监听"></a>31. 在dealloc方法中只释放引用并解除监听</h5><p>永远不要自己调用dealloc方法，运行期系统会在适当的时候调用它。根据性能需求我们有时需要在dealloc方法中做一些操作。</p>
+<ul>
+<li>释放对象所拥有的所有引用，不过ARC会自动添加这些- 释放代码，可以不必操心。</li>
+<li>而且对象拥有的其他非OC对象也要释放（CoreFoundation对象就必须手动释放）</li>
+<li>释放原来的观测行为：注销通知。如果没有及时注销，就会向其发送通知，使得程序崩溃</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)dealloc &#123;</span><br><span class="line"></span><br><span class="line">CFRelease(coreFoundationObject);</span><br><span class="line">[[NSNotificationCenter defaultCenter] removeObserver:self];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h6 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h6><ul>
+<li>在dealloc方法中不应该调用其他的方法，因为如果这些方法是异步的，并且回调中还要使用当前对象，那么很有可能当前对象已经被释放了，会导致崩溃。</li>
+<li>在ARC  dealloc方法中本能调用<code>[ super dealloc ]</code>方法。</li>
+<li>并且在dealloc方法中也不能调用属性的存取方法，因为很有可能在这些方法里还有其他操作。而且这个属性还有可能处于键值观察状态，该属性的观察者可能会在属性改变时保留或者使用这个即将回收的对象。</li>
+</ul>
+</blockquote>
+<h5 id="32-编写“异常安全代码”时留意内存管理问题"><a href="#32-编写“异常安全代码”时留意内存管理问题" class="headerlink" title="32. 编写“异常安全代码”时留意内存管理问题"></a>32. 编写“异常安全代码”时留意内存管理问题</h5><p>在编写异常块时需要注意内存管理的问题：</p>
+<blockquote>
+<p>在try块中，如果先保留了某个对象，然后在释放它之前又抛出了异常，那么除非在catch块中能处理此问题，否则对象所占内存就将泄漏。</p>
+</blockquote>
+<h6 id="在MRC环境下："><a href="#在MRC环境下：" class="headerlink" title="在MRC环境下："></a>在MRC环境下：</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@try &#123;</span><br><span class="line">EOCSomeClass *object = [[EOCSomeClass alloc] init];</span><br><span class="line">[object doSomethingThatMayThrow];</span><br><span class="line">[object release];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@catch (...) &#123;</span><br><span class="line">NSLog(@&quot;Whoops, there was an error. Oh well...&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码中，我们用release方法释放了try中的对象，但是这样做仍然有问题：如果在<code>doSomthingThatMayThrow</code>方法中抛出了异常了呢？</p>
+<p>这样就无法执行<code>release</code>方法了。</p>
+<p>######解决办法：<br>使用<code>@finnaly</code>块，无论是否抛出异常，其中的代码都能运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">EOCSomeClass *object;</span><br><span class="line">@try &#123;</span><br><span class="line">object = [[EOCSomeClass alloc] init];</span><br><span class="line">[object doSomethingThatMayThrow];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@catch (...) &#123;</span><br><span class="line">NSLog(@&quot;Whoops, there was an error. Oh well...&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@finally &#123;</span><br><span class="line">[object release];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="在ARC环境下"><a href="#在ARC环境下" class="headerlink" title="在ARC环境下:"></a>在ARC环境下:</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@try &#123;</span><br><span class="line">EOCSomeClass *object = [[EOCSomeClass alloc] init];</span><br><span class="line">[object doSomethingThatMayThrow];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@catch (...) &#123;</span><br><span class="line">NSLog(@&quot;Whoops, there was an error. Oh well...&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时，我们无法手动使用<code>release</code>方法了，解决办法是使用：<code>-fobjc-arc-exceptions</code> 标志来加入清理代码，不过会导致应用程序变大，而且会降低运行效率。</p>
+<h5 id="33-以弱引用避免保留环"><a href="#33-以弱引用避免保留环" class="headerlink" title="33. 以弱引用避免保留环"></a>33. 以弱引用避免保留环</h5><p>对象之间都用强指针引用对方的话就会造成保留环。</p>
+<h6 id="两个对象的保留环："><a href="#两个对象的保留环：" class="headerlink" title="两个对象的保留环："></a>两个对象的保留环：</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@interface EOCClassA : NSObject</span><br><span class="line">@property (nonatomic, strong) EOCClassB *other;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@interface EOCClassB : NSObject</span><br><span class="line">@property (nonatomic, strong) EOCClassA *other;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2063843-a2841e1814a8ab4f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两个对象的保留环.png"></p>
+<p>两个对象都有指向对方的强指针，这样会导致这两个属性里的对象无法被释放掉。</p>
+<h6 id="多个对象的保留环："><a href="#多个对象的保留环：" class="headerlink" title="多个对象的保留环："></a>多个对象的保留环：</h6><p>如果保留环连接了多个对象，而这里其中一个对象被外界引用，那么当这个引用被移除后，整个保留环就泄漏了。<br><img src="http://upload-images.jianshu.io/upload_images/2063843-e7567bf66484c753.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多个对象的保留环：孤岛.png"></p>
+<p>解决方案是使用弱引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//EOCClassB.m</span><br><span class="line">//第一种弱引用：unsafe_unretained</span><br><span class="line">@property (nonatomic, unsafe_unretained) EOCClassA *other;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//第二种弱引用：weak</span><br><span class="line">@property (nonatomic, weak) EOCClassA *other;</span><br></pre></td></tr></table></figure></p>
+<p>######两种弱引用的区别:</p>
+<p>unsafe_unretained:当指向EOCClassA实例的引用移除后，unsafe_unretained属性仍然指向那个已经回收的实例，</p>
+<p>而weak指向nil：<br><img src="http://upload-images.jianshu.io/upload_images/2063843-8d034da52df84c52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="unsafe_unretained 和 weak的区别.png"></p>
+<p>显然，用weak字段应该是更安全的，因为不再使用的对象按理说应该设置为nil,而不应该产生依赖。</p>
+<h5 id="34-以“自动释放池快”降低内存峰值"><a href="#34-以“自动释放池快”降低内存峰值" class="headerlink" title="34. 以“自动释放池快”降低内存峰值"></a>34. 以“自动释放池快”降低内存峰值</h5><p>释放对象的两种方式：</p>
+<ul>
+<li>调用release:保留计数递减</li>
+<li>调用autorelease将其加入自动释放池中。在将来清空自动释放池时，系统会向其中的对象发送release消息。<br>内存峰值（high-memory waterline）是指应用程序在某个限定时段内的最大内存用量（highest memory footprint）。新增的自动释放池块可以减少这个峰值：</li>
+</ul>
+<p>不用自动释放池减少峰值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; 100000; i++) &#123;</span><br><span class="line"></span><br><span class="line">[self doSomethingWithInt:i];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里，doSomethingWithInt:方法可能会创建临时对象。随着循环次数的增加，临时对象的数量也会飙升，而只有在整个for循环结束后，这些临时对象才会得意释放。</p>
+<p>这种情况是不理想的，尤其在我们无法控制循环长度的情况下，我们会不断占用内存并突然释放掉它们。</p>
+<p>因此，我们需要用自动释放池来降低这种突兀的变化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NSArray *databaseRecords = /* ... */;</span><br><span class="line">NSMutableArray *people = [NSMutableArray new];</span><br><span class="line">for (NSDictionary *record in databaseRecords) &#123;</span><br><span class="line">@autoreleasepool &#123;</span><br><span class="line">EOCPerson *person = [[EOCPerson alloc] initWithRecord:record];</span><br><span class="line">[people addObject:person];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这样一来，每次循环结束，我们都会将临时对象放在这个池里面，而不是线程的主池里面。</p>
+</blockquote>
+<h5 id="35-用“僵尸对象”调试内存管理问题"><a href="#35-用“僵尸对象”调试内存管理问题" class="headerlink" title="35.用“僵尸对象”调试内存管理问题"></a>35.用“僵尸对象”调试内存管理问题</h5><p>某个对象被回收后，再向它发送消息是不安全的，这并不一定会引起程序崩溃。</p>
+<p>如果程序没有崩溃，可能是因为：</p>
+<ul>
+<li>该内存的部分原数据没有被覆写。</li>
+<li>该内存恰好被另一个对象占据，而这个对象可以应答这个方法。</li>
+</ul>
+<p>如果被回收的对象占用的原内存被新的对象占据，那么收到消息的对象就不会是我们预想的那个对象。在这样的情况下，如果这个对象无法响应那个方法的话，程序依旧会崩溃。</p>
+<p>因此，我们希望可以通过一种方法捕捉到<strong>对象被释放后收到消息的情况</strong>。</p>
+<p>这种方法就是利用<strong>僵尸对象</strong>！</p>
+<p>Cocoa提供了“僵尸对象”的功能。如果开启了这个功能，运行期系统会把所有已经回收的实例转化成特殊的“僵尸对象”（通过修改isa指针，令其指向特殊的僵尸类），而不会真正回收它们，而且它们所占据的核心内存将无法被重用，这样也就避免了覆写的情况。</p>
+<p>在僵尸对象收到消息后，会抛出异常，它会说明发送过来的消息，也会描述回收之前的那个对象。</p>
+<h5 id="36-不要使用retainCount"><a href="#36-不要使用retainCount" class="headerlink" title="36.不要使用retainCount"></a>36.不要使用retainCount</h5><p>在非ARC得环境下使用retainCount可以返回当前对象的引用计数，但是在ARC环境下调用会报错，因为该方法已经被废弃了 。</p>
+<p>它被废弃的原因是因为它所返回的引用计数只能反映对象某一时刻的引用计数，而无法“预知”对象将来引用计数的变化（比如对象当前处于自动释放池中，那么将来就会自动递减引用计数）。</p>
+<h5 id="37-理解“块”这一概念"><a href="#37-理解“块”这一概念" class="headerlink" title="37.理解“块”这一概念"></a>37.理解“块”这一概念</h5><p>代码块Block是苹果在iOS4开始引入的对C语言的扩展,用来实现匿名函数的特性,Block是一种特殊的数据类型,其可以正常定义变量、作为参数、作为返回值,特殊地,Block还可以保存一段代码,在需要的时候调用,目前Block已经广泛应用于iOS开发中,常用于GCD、动画、排序及各类回调</p>
+<p>块(Block)分为三类：</p>
+<ul>
+<li>栈块</li>
+<li>堆块</li>
+<li>全局块</li>
+</ul>
+<p>######A.栈块<br>定义块的时候，其所占内存区域是分配在栈中的，而且只在定义它的那个范围内有效：</p>
+<p>在Block的内存存储在栈中时,如果在Block中引用了外面的对象,不会对所引用的对象进行任何操作</p>
+<h6 id="B-堆块"><a href="#B-堆块" class="headerlink" title="B.堆块"></a>B.堆块</h6><p>避免离开相应的栈范围后，编译器可能覆盖掉之前分配的占内存，我们可以给对象发送copy消息,如果对Block进行一次copy操作,那么Block的内存会被移动到堆中,这时需要开发人员对其进行release操作来管理内存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void (^block)();</span><br><span class="line"></span><br><span class="line">if ( /* some condition */ ) &#123;</span><br><span class="line">block = [^&#123;</span><br><span class="line">NSLog(@&quot;Block A&quot;);</span><br><span class="line">&#125; copy];</span><br><span class="line">&#125; else &#123;</span><br><span class="line">block = [^&#123;</span><br><span class="line">NSLog(@&quot;Block B&quot;);</span><br><span class="line">&#125; copy];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">block();</span><br></pre></td></tr></table></figure>
+<h6 id="C-全局块"><a href="#C-全局块" class="headerlink" title="C.全局块"></a>C.全局块</h6><p>全局块声明在全局内存里，而不需要在每次用到的时候于栈中创建。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void (^block)() = ^&#123;</span><br><span class="line">NSLog(@&quot;This is a block&quot;);</span><br><span class="line">﻿&#125;;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<ul>
+<li>块可接受参数，也可返回值。</li>
+<li>块可以分配在栈或堆上，也可以是全局的。分配在栈上的块可拷贝到堆里，就具备标准的对象一样的引用计数.</li>
+</ul>
+</blockquote>
+<h5 id="38-为常用的块类型创建typedef"><a href="#38-为常用的块类型创建typedef" class="headerlink" title="38.为常用的块类型创建typedef"></a>38.为常用的块类型创建typedef</h5><p>如果我们需要重复创建某种块（相同参数，返回值）的变量，我们就可以通过typedef来给某一种块定义属于它自己的新类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int (^variableName)(BOOL flag, int value) =^(BOOL flag, int value)&#123;</span><br><span class="line">// Implementation</span><br><span class="line">return someInt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个块有一个bool参数和一个int参数，并返回int类型。我们可以给它定义类型：</p>
+<p><code>typedef int(^EOCSomeBlock)(BOOL flag, int value);</code></p>
+<p>再次定义的时候，就可以通过简单的赋值来实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EOCSomeBlock block = ^(BOOL flag, int value)&#123;</span><br><span class="line">// Implementation</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>定义作为参数的块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)startWithCompletionHandler: (void(^)(NSData *data, NSError *error))completion;</span><br></pre></td></tr></table></figure></p>
+<p>这里的块有一个NSData参数，一个NSError参数并没有返回值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">typedef void(^EOCCompletionHandler)(NSData *data, NSError *error);</span><br><span class="line">- (void)startWithCompletionHandler:(EOCCompletionHandler)completion;</span><br></pre></td></tr></table></figure></p>
+<p>通过typedef定义块签名的好处是:如果要某种块增加参数，那么只修改定义签名的那行代码即可。</p>
+<h5 id="39-用handler块降低代码分散程度"><a href="#39-用handler块降低代码分散程度" class="headerlink" title="39.用handler块降低代码分散程度"></a>39.用handler块降低代码分散程度</h5><p>一般，下载网络数据时，如果使用代理方法，会使得代码分布不紧凑，而且如果有多个下载任务的话，还要在回调的代理中判断当前请求的类型。但是如果使用block的话，就可以让网络下载的代码和回调处理的代码写在一起，这样就可以同时解决上面的两个问题：</p>
+<h6 id="A-使用代理下载"><a href="#A-使用代理下载" class="headerlink" title="A:使用代理下载:"></a>A:使用代理下载:</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">- (void)fetchFooData &#123;</span><br><span class="line"></span><br><span class="line">NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/foo.dat&quot;];</span><br><span class="line">_fooFetcher = [[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line">_fooFetcher.delegate = self;</span><br><span class="line">[_fooFetcher start];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)fetchBarData &#123;</span><br><span class="line"></span><br><span class="line">NSURL *url = [[NSURL alloc] initWithString: @&quot;http://www.example.com/bar.dat&quot;];</span><br><span class="line">_barFetcher = [[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line">_barFetcher.delegate = self;</span><br><span class="line">[_barFetcher start];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)networkFetcher:(EOCNetworkFetcher*)networkFetcher didFinishWithData:(NSData*)data</span><br><span class="line">&#123;   //判断下载器类型</span><br><span class="line">if (networkFetcher == _fooFetcher) &#123;</span><br><span class="line">_fetchedFooData = data;</span><br><span class="line">_fooFetcher = nil;</span><br><span class="line"></span><br><span class="line">&#125; else if (networkFetcher == _barFetcher) &#123;</span><br><span class="line">_fetchedBarData = data;</span><br><span class="line">_barFetcher = nil;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="B-使用块儿下载"><a href="#B-使用块儿下载" class="headerlink" title="B.使用块儿下载:"></a>B.使用块儿下载:</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (void)fetchFooData &#123;</span><br><span class="line"></span><br><span class="line">NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/foo.dat&quot;];</span><br><span class="line">EOCNetworkFetcher *fetcher =</span><br><span class="line">[[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line">[fetcher startWithCompletionHandler:^(NSData *data)&#123;</span><br><span class="line">_fetchedFooData = data;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)fetchBarData &#123;</span><br><span class="line"></span><br><span class="line">NSURL *url = [[NSURL alloc] initWithString: @&quot;http://www.example.com/bar.dat&quot;];</span><br><span class="line">EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line">[fetcher startWithCompletionHandler:^(NSData *data)&#123;</span><br><span class="line">_fetchedBarData = data;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以将处理成功的代码放在一个块里，处理失败的代码放在另一个块中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">“#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@class EOCNetworkFetcher;</span><br><span class="line">typedef void(^EOCNetworkFetcherCompletionHandler)(NSData *data);</span><br><span class="line">typedef void(^EOCNetworkFetcherErrorHandler)(NSError *error);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@interface EOCNetworkFetcher : NSObject</span><br><span class="line"></span><br><span class="line">- (id)initWithURL:(NSURL*)url;</span><br><span class="line">- (void)startWithCompletionHandler: (EOCNetworkFetcherCompletionHandler)completion failureHandler: (EOCNetworkFetcherErrorHandler)failure;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line">[fetcher startWithCompletionHander:^(NSData *data)&#123;</span><br><span class="line">// Handle success</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">failureHandler:^(NSError *error)&#123;</span><br><span class="line">// Handle failure</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这样写的好处是，我们可以将处理成功和失败的代码分开来写，看上去更加清晰。<br>我们还可以将 成功和失败的代码都放在同一个块里：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">“#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@class EOCNetworkFetcher;</span><br><span class="line">typedef void(^EOCNetworkFetcherCompletionHandler)(NSData *data, NSError *error);</span><br><span class="line"></span><br><span class="line">@interface EOCNetworkFetcher : NSObject</span><br><span class="line"></span><br><span class="line">- (id)initWithURL:(NSURL*)url;</span><br><span class="line">- (void)startWithCompletionHandler:</span><br><span class="line"></span><br><span class="line">(EOCNetworkFetcherCompletionHandler)completion;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line"></span><br><span class="line">[fetcher startWithCompletionHander:</span><br><span class="line"></span><br><span class="line">^(NSData *data, NSError *error)&#123;</span><br><span class="line"></span><br><span class="line">if (error) &#123;</span><br><span class="line"></span><br><span class="line">// Handle failure</span><br><span class="line"></span><br><span class="line">&#125; else &#123;</span><br><span class="line"></span><br><span class="line">// Handle success</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>这样做的好处是，如果及时下载失败或中断了，我们仍然可以取到当前所下载的data。而且，如果在需求上指出：下载成功后得到的数据很少，也视为失败，那么单一块的写法就很适用，因为它可以取得数据后（成功）再判断其是否是下载成功的。</p>
+</blockquote>
+<h5 id="40-用块引用其所属对象时不要出现保留环"><a href="#40-用块引用其所属对象时不要出现保留环" class="headerlink" title="40.用块引用其所属对象时不要出现保留环"></a>40.用块引用其所属对象时不要出现保留环</h5><p>如果块捕获的对象直接或间接地保留了块本身，那么就需要小心保留环问题:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@implementation EOCClass &#123;</span><br><span class="line"></span><br><span class="line">EOCNetworkFetcher *_networkFetcher;</span><br><span class="line">NSData *_fetchedData;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)downloadData &#123;</span><br><span class="line"></span><br><span class="line">NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/something.dat&quot;];</span><br><span class="line">_networkFetcher =[[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line"></span><br><span class="line">[_networkFetcher startWithCompletionHandler:^(NSData *data)&#123;</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;Request URL %@ finished&quot;, _networkFetcher.url);</span><br><span class="line">_fetchedData = data;</span><br><span class="line"></span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里出现了保留环：块要设置_fetchedData变量，就需要捕获self变量。而self（EOCClass实例）通过实例变量保留了获取器_networkFetcher，而_networkFetcher又保留了块。</p>
+<p><strong>解决方案是：</strong>在块中取得了data后，将_networkFetcher设为nil。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (void)downloadData &#123;</span><br><span class="line"></span><br><span class="line">NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/something.dat&quot;];</span><br><span class="line">_networkFetcher =[[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line">[_networkFetcher startWithCompletionHandler:^(NSData *data)&#123;</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;Request URL %@ finished&quot;, _networkFetcher.url);</span><br><span class="line">_fetchedData = data;</span><br><span class="line">_networkFetcher = nil;</span><br><span class="line"></span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="41-多用派发队列，少用同步锁"><a href="#41-多用派发队列，少用同步锁" class="headerlink" title="41.多用派发队列，少用同步锁"></a>41.多用派发队列，少用同步锁</h5><p>多个线程执行同一份代码时，很可能会造成数据不同步。作者建议使用GCD来为代码加锁的方式解决这个问题。</p>
+<h6 id="A-使用串行同步队列来将读写操作都安排到同一个队列里："><a href="#A-使用串行同步队列来将读写操作都安排到同一个队列里：" class="headerlink" title="A: 使用串行同步队列来将读写操作都安排到同一个队列里："></a>A: 使用串行同步队列来将读写操作都安排到同一个队列里：</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">_syncQueue = dispatch_queue_create(&quot;com.effectiveobjectivec.syncQueue&quot;, NULL);</span><br><span class="line"></span><br><span class="line">//读取字符串</span><br><span class="line">- (NSString*)someString &#123;</span><br><span class="line"></span><br><span class="line">__block NSString *localSomeString;</span><br><span class="line">dispatch_sync(_syncQueue, ^&#123;</span><br><span class="line">localSomeString = _someString;</span><br><span class="line">&#125;);</span><br><span class="line">return localSomeString;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//设置字符串</span><br><span class="line">- (void)setSomeString:(NSString*)someString &#123;</span><br><span class="line"></span><br><span class="line">dispatch_sync(_syncQueue, ^&#123;</span><br><span class="line">_someString = someString;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>读写操作都在串行队列进行，就不容易出错。</p>
+<p>但是，还有一种方法可以让性能更高：</p>
+<h6 id="B-将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"><a href="#B-将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。" class="headerlink" title="B:将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"></a>B:将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_syncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</span><br><span class="line"></span><br><span class="line">//读取字符串</span><br><span class="line">- (NSString*)someString &#123;</span><br><span class="line"></span><br><span class="line">__block NSString *localSomeString;</span><br><span class="line">dispatch_sync(_syncQueue, ^&#123;</span><br><span class="line">localSomeString = _someString;</span><br><span class="line">&#125;);</span><br><span class="line">return localSomeString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//设置字符串</span><br><span class="line">- (void)setSomeString:(NSString*)someString &#123;</span><br><span class="line"></span><br><span class="line">dispatch_barrier_async(_syncQueue, ^&#123;</span><br><span class="line">_someString = someString;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>显然，数据的正确性主要取决于写入操作，那么只要保证写入时，线程是安全的，那么即便读取操作是并发的，也可以保证数据是同步的。</p>
+</blockquote>
+<blockquote>
+<p>这里的<code>dispatch_barrier_async</code>方法使得操作放在了同步队列里“有序进行”，保证了写入操作的任务是在串行队列里。</p>
+</blockquote>
+<h5 id="42-多用GCD，少用performSelector系列方法"><a href="#42-多用GCD，少用performSelector系列方法" class="headerlink" title="42.多用GCD，少用performSelector系列方法"></a>42.多用GCD，少用performSelector系列方法</h5><p>在Objective-C开发中，有时会使用performSelector来执行某个方法，但是performSelector系列的方法能处理的选择子很局限：</p>
+<ul>
+<li>它无法处理带有多个参数的选择子。</li>
+<li>返回值只能是void或者对象类型。</li>
+</ul>
+<p>但是如果将方法放在块中，通过GCD来操作就能很好地解决这些问题。尤其是我们如果想要让一个任务在另一个线程上执行，最好应该将任务放到块里，交给GCD来实现，而不是通过performSelector方法。</p>
+<h6 id="A-延后执行某个任务的方法："><a href="#A-延后执行某个任务的方法：" class="headerlink" title="A. 延后执行某个任务的方法："></a>A. 延后执行某个任务的方法：</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 使用 performSelector:withObject:afterDelay:</span><br><span class="line">[self performSelector:@selector(doSomething) withObject:nil afterDelay:5.0];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 使用 dispatch_after</span><br><span class="line">dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC));</span><br><span class="line">dispatch_after(time, dispatch_get_main_queue(), ^(void)&#123;</span><br><span class="line">[self doSomething];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h6 id="B-将任务放在主线程执行："><a href="#B-将任务放在主线程执行：" class="headerlink" title="B.将任务放在主线程执行："></a>B.将任务放在主线程执行：</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 使用 performSelectorOnMainThread:withObject:waitUntilDone:</span><br><span class="line">[self performSelectorOnMainThread:@selector(doSomething) withObject:nil waitUntilDone:NO];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 使用 dispatch_async</span><br><span class="line">// (or if waitUntilDone is YES, then dispatch_sync)</span><br><span class="line">dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">[self doSomething];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意：</strong><br>如果waitUntilDone的参数是Yes，那么就对应GCD的dispatch_sync方法。<br>我们可以看到，使用GCD的方式可以将线程操作代码和方法调用代码写在同一处，一目了然；而且完全不受调用方法的选择子和方法参数个数的限制。</p>
+</blockquote>
+<h5 id="43-掌握GCD及操作队列的使用时机"><a href="#43-掌握GCD及操作队列的使用时机" class="headerlink" title="43.掌握GCD及操作队列的使用时机"></a>43.掌握GCD及操作队列的使用时机</h5><p>除了GCD，操作队列（NSOperationQueue）也是解决多线程任务管理问题的一个方案。对于不同的环境，我们要采取不同的策略来解决问题：有时候使用GCD好些，有时则是使用操作队列更加合理。</p>
+<p><strong>使用NSOperation和NSOperationQueue的优点：</strong></p>
+<ul>
+<li>A. 可以取消操作：在运行任务前，可以在NSOperation对象调用cancel方法，标明此任务不需要执行。但是GCD队列是无法取消的，因为它遵循“安排好之后就不管了（fire and forget）”的原则。</li>
+<li>B. 可以指定操作间的依赖关系：例如从服务器下载并处理文件的动作可以用操作来表示。而在处理其他文件之前必须先下载“清单文件”。而后续的下载工作，都要依赖于先下载的清单文件这一操作。</li>
+<li>C. 监控NSOperation对象的属性：可以通过KVO来监听NSOperation的属性：可以通过isCancelled属性来判断任务是否已取消；通过isFinished属性来判断任务是否已经完成。</li>
+<li>D. 可以指定操作的优先级：操作的优先级表示此操作与队列中其他操作之间的优先关系，我们可以指定它。</li>
+</ul>
+<h5 id="44-通过Dispath-Group机制，根据系统资源状况来执行任务"><a href="#44-通过Dispath-Group机制，根据系统资源状况来执行任务" class="headerlink" title="44.通过Dispath Group机制，根据系统资源状况来执行任务"></a>44.通过Dispath Group机制，根据系统资源状况来执行任务</h5><p>有时需要<strong><em>等待</em></strong>多个并行任务结束的那一刻执行某个任务，这个时候就可以使用dispath group函数来实现这个需求：</p>
+<p>通过dispath group函数，可以把并发执行的多个任务合为一组，于是调用者就可以知道这些任务何时才能全部执行完毕。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//一个优先级低的并发队列</span><br><span class="line">dispatch_queue_t lowPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);</span><br><span class="line"></span><br><span class="line">//一个优先级高的并发队列</span><br><span class="line">dispatch_queue_t highPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);</span><br><span class="line"></span><br><span class="line">//创建dispatch_group</span><br><span class="line">dispatch_group_t dispatchGroup = dispatch_group_create();</span><br><span class="line"></span><br><span class="line">//将优先级低的队列放入dispatch_group</span><br><span class="line">for (id object in lowPriorityObjects) &#123;</span><br><span class="line">dispatch_group_async(dispatchGroup,lowPriorityQueue,^&#123; [object performTask]; &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//将优先级高的队列放入dispatch_group</span><br><span class="line">for (id object in highPriorityObjects) &#123;</span><br><span class="line">dispatch_group_async(dispatchGroup,highPriorityQueue,^&#123; [object performTask]; &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//dispatch_group里的任务都结束后调用块中的代码</span><br><span class="line">dispatch_queue_t notifyQueue = dispatch_get_main_queue();</span><br><span class="line">dispatch_group_notify(dispatchGroup,notifyQueue,^&#123;</span><br><span class="line">// Continue processing after completing tasks</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h5 id="45-使用dispatch-once来执行只需运行一次的线程安全代码"><a href="#45-使用dispatch-once来执行只需运行一次的线程安全代码" class="headerlink" title="45.使用dispatch_once来执行只需运行一次的线程安全代码"></a>45.使用dispatch_once来执行只需运行一次的线程安全代码</h5><p>开发中我们可能只需要将某段代码执行一次且保证线程安全的情况下，这时可以通过dispatch_once函数来解决。</p>
+<p>dispatch_once函数比较重要的使用例子是单例模式：<br>我们在创建单例模式的实例时，可以使用dispatch_once函数来令初始化代码只执行一次，并且内部是线程安全的。</p>
+<p>而且，对于执行一次的block来说，每次调用函数时传入的标记都必须完全相同，通常标记变量声明在static或global作用域里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (id)sharedInstance &#123;</span><br><span class="line"></span><br><span class="line">static EOCClass *sharedInstance = nil;</span><br><span class="line">static dispatch_once_t onceToken;</span><br><span class="line">dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">﻿            sharedInstance = [[self alloc] init];</span><br><span class="line">&#125;);</span><br><span class="line">return sharedInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们可以这么理解：在dispatch_once块中的代码在程序启动到终止的过程里，只要运行了一次后，就给自己加上了注释符号，不再存在了。</p>
+</blockquote>
+<h5 id="46-不要使用dispatch-get-current-queue"><a href="#46-不要使用dispatch-get-current-queue" class="headerlink" title="46.不要使用dispatch_get_current_queue"></a>46.不要使用dispatch_get_current_queue</h5><p>无法用某个队列来描述“当前队列”这一属性，因为派发队列是按照层级来组织的。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2063843-e3b82807d2b745dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="队列的层及分布.png"></p>
+<p>安排在某条队列中的快，会在其上层队列中执行，而层级地位最高的那个队列总是全局并发队列。</p>
+<p>在这里，B，C中的块会在A里执行。但是D中的块，可能与A里的块并行，因为A和D的目标队列是并发队列。</p>
+<p>正因为有了这种层级关系，所以检查当前队列是并发的还是非并发的就不会总是很准确。</p>
+<h5 id="47-熟悉系统框架"><a href="#47-熟悉系统框架" class="headerlink" title="47.熟悉系统框架"></a>47.熟悉系统框架</h5><p>如果我们使用了系统提供的现成的框架，那么用户在升级系统后，就可以直接享受系统升级所带来的改进。</p>
+<p>主要的系统框架：</p>
+<ul>
+<li>Foundation:NSObject,NSArray,NSDictionary等</li>
+<li>CFoundation框架：C语言API，Foundation框架中的许多功能，都可以在这里找到对应的C语言API</li>
+<li>CFNetwork框架:C语言API，提供了C语言级别的网络通信能力</li>
+<li>CoreAudio:C语言API，操作设备上的音频硬件</li>
+<li>AVFoundation框架：提供的OC对象可以回放并录制音频和视频</li>
+<li>CoreData框架：OC的API，将对象写入数据库</li>
+<li>CoreText框架：C语言API，高效执行文字排版和渲染操作</li>
+</ul>
+<p>用C语言来实现API的好处：可以绕过OC的运行期系统，从而提升执行速度。</p>
+<h5 id="48-多用块枚举，少用for循环"><a href="#48-多用块枚举，少用for循环" class="headerlink" title="48.多用块枚举，少用for循环"></a>48.多用块枚举，少用for循环</h5><p>当遍历集合元素时，建议使用块枚举，因为相对于传统的for循环，它更加高效，而且简洁,还能获取到用传统的for循环无法提供的值：</p>
+<p>我们首先看一下传统的遍历:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">NSArray *anArray = /* ... */;</span><br><span class="line">for (int i = 0; i &lt; anArray.count; i++) &#123;</span><br><span class="line">id object = anArray[i];</span><br><span class="line">// Do something with &apos;object&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Dictionary</span><br><span class="line">NSDictionary *aDictionary = /* ... */;</span><br><span class="line">NSArray *keys = [aDictionary allKeys];</span><br><span class="line">for (int i = 0; i &lt; keys.count; i++) &#123;</span><br><span class="line">id key = keys[i];</span><br><span class="line">id value = aDictionary[key];</span><br><span class="line">// Do something with &apos;key&apos; and &apos;value&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Set</span><br><span class="line">NSSet *aSet = /* ... */;</span><br><span class="line">NSArray *objects = [aSet allObjects];</span><br><span class="line">for (int i = 0; i &lt; objects.count; i++) &#123;</span><br><span class="line">id object = objects[i];</span><br><span class="line">// Do something with &apos;object&apos;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到，在遍历NSDictionary,和NSet时，我们又新创建了一个数组。虽然遍历的目的达成了，但是却加大了系统的开销。<br><strong>利用快速遍历：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">NSArray *anArray = /* ... */;</span><br><span class="line">for (id object in anArray) &#123;</span><br><span class="line">// Do something with &apos;object&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Dictionary</span><br><span class="line">NSDictionary *aDictionary = /* ... */;</span><br><span class="line">for (id key in aDictionary) &#123;</span><br><span class="line">id value = aDictionary[key];</span><br><span class="line">// Do something with &apos;key&apos; and &apos;value&apos;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">NSSet *aSet = /* ... */;</span><br><span class="line">for (id object in aSet) &#123;</span><br><span class="line">// Do something with &apos;object&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种快速遍历的方法要比传统的遍历方法更加简洁易懂，但是缺点是无法方便获取元素的下标。</p>
+<p><strong>利用基于块（block）的遍历：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">NSArray *anArray = /* ... */;</span><br><span class="line">[anArray enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop)&#123;</span><br><span class="line"></span><br><span class="line">// Do something with &apos;object&apos;</span><br><span class="line">if (shouldStop) &#123;</span><br><span class="line">*stop = YES; //使迭代停止</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">“// Dictionary</span><br><span class="line">NSDictionary *aDictionary = /* ... */;</span><br><span class="line">[aDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop)&#123;</span><br><span class="line">// Do something with &apos;key&apos; and &apos;object&apos;</span><br><span class="line">if (shouldStop) &#123;</span><br><span class="line">*stop = YES;</span><br><span class="line">&#125;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Set</span><br><span class="line">NSSet *aSet = /* ... */;</span><br><span class="line">[aSet enumerateObjectsUsingBlock:^(id object, BOOL *stop)&#123;</span><br><span class="line">// Do something with &apos;object&apos;</span><br><span class="line">if (shouldStop) &#123;</span><br><span class="line">*stop = YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到，在使用块进行快速枚举的时候，我们可以不创建临时数组。虽然语法上没有快速枚举简洁，但是我们可以获得数组元素对应的序号，字典元素对应的键值，而且，我们还可以随时令遍历终止。</p>
+<p>利用快速枚举和块的枚举还有一个优点：能够修改块的方法签名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (NSString *key in aDictionary) &#123;</span><br><span class="line">NSString *object = (NSString*)aDictionary[key];</span><br><span class="line">// Do something with &apos;key&apos; and &apos;object&apos;</span><br><span class="line">&#125;</span><br><span class="line">NSDictionary *aDictionary = /* ... */;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[aDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop)&#123;</span><br><span class="line"></span><br><span class="line">// Do something with &apos;key&apos; and &apos;obj&apos;</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果我们可以知道集合里的元素类型，就可以修改签名。这样做的好处是：可以让编译期检查该元素是否可以实现我们想调用的方法，如果不能实现，就做另外的处理。这样一来，程序就能变得更加安全。</p>
+<h5 id="49-对自定义其内存管理语义的collection使用无缝桥接"><a href="#49-对自定义其内存管理语义的collection使用无缝桥接" class="headerlink" title="49.对自定义其内存管理语义的collection使用无缝桥接"></a>49.对自定义其内存管理语义的collection使用无缝桥接</h5><p>通过无缝桥接技术，可以再Foundation框架中的OC对象和CoreFoundation框架中的C语言数据结构之间来回转换。</p>
+<p>创建CoreFoundation中的collection时，可以指定如何处理其中的元素。然后利用无缝桥接技术，可以将其转换为OCcollection。</p>
+<p>简单的无缝桥接演示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSArray *anNSArray = @[@1, @2, @3, @4, @5];</span><br><span class="line">CFArrayRef aCFArray = (__bridge CFArrayRef)anNSArray;</span><br><span class="line">NSLog(@&quot;Size of array = %li&quot;, CFArrayGetCount(aCFArray));</span><br></pre></td></tr></table></figure></p>
+<p>这里，<code>__bridge</code>表示ARC仍然具备这个OC对象的所有权。<code>CFArrayGetCount</code>用来获取数组的长高度。</p>
+<p>为什么要使用无缝桥接技术呢？因为有些OC对象的特性是其对应的CF数据结构不具备的，反之亦然。因此我们需要通过无缝桥接技术来让这两者进行功能上的“互补”。</p>
+<h5 id="50-构建缓存时选用NSCache-而非NSDictionary"><a href="#50-构建缓存时选用NSCache-而非NSDictionary" class="headerlink" title="50.构建缓存时选用NSCache 而非NSDictionary"></a>50.构建缓存时选用NSCache 而非NSDictionary</h5><p><strong>NSDictionary</strong></p>
+<p>如果我们缓存使用得当，那么应用程序的响应速度就会提高。只有那种“重新计算起来很费事的数据，才值得放入缓存”，比如那些需要从网络获取或从磁盘读取的数据。</p>
+<p>在构建缓存的时候很多人习惯用<code>NSDictionary</code>或者<code>NSMutableDictionary</code>，但是作者建议大家使用<code>NSCache</code>，它作为管理缓存的类，有很多特点要优于字典，因为它本来就是为了管理缓存而设计的。</p>
+<p><strong>NSCache优于NSDictionary的几点：</strong></p>
+<p>当系统资源将要耗尽时，<code>NSCache</code>具备自动删减缓冲的功能。并且还会先删减“最久未使用”的对象。<br><code>NSCache</code>不拷贝键，而是保留键。因为并不是所有的键都遵从拷贝协议（字典的键是必须要支持拷贝协议的，有局限性）。<br><code>NSCache</code>是线程安全的：不编写加锁代码的前提下，多个线程可以同时访问<code>NSCache</code>。<br>关于操控<code>NSCache</code>删减内容的时机</p>
+<p>开发者可以通过两个尺度来调整这个时机：</p>
+<p>缓存中的对象总数.<br>将对象加入缓存时，为其指定开销值。<br>对于开销值，只有在能很快计算出开销值的情况下，才应该考虑采用这个尺度，不然反而会加大系统的开销。</p>
+<p>下面我们来看一下缓存的用法：缓存网络下载的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">// Network fetcher class</span><br><span class="line">typedef void(^EOCNetworkFetcherCompletionHandler)(NSData *data);</span><br><span class="line"></span><br><span class="line">@interface EOCNetworkFetcher : NSObject</span><br><span class="line"></span><br><span class="line">- (id)initWithURL:(NSURL*)url;</span><br><span class="line">- (void)startWithCompletionHandler:(EOCNetworkFetcherCompletionHandler)handler;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">// Class that uses the network fetcher and caches results</span><br><span class="line">@interface EOCClass : NSObject</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation EOCClass &#123;</span><br><span class="line">NSCache *_cache;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)init &#123;</span><br><span class="line"></span><br><span class="line">if ((self = [super init])) &#123;</span><br><span class="line">_cache = [NSCache new];</span><br><span class="line"></span><br><span class="line">// Cache a maximum of 100 URLs</span><br><span class="line">_cache.countLimit = 100;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* The size in bytes of data is used as the cost,</span><br><span class="line">* so this sets a cost limit of 5MB.</span><br><span class="line">*/</span><br><span class="line">_cache.totalCostLimit = 5 * 1024 * 1024;</span><br><span class="line">&#125;</span><br><span class="line">return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)downloadDataForURL:(NSURL*)url &#123;</span><br><span class="line"></span><br><span class="line">NSData *cachedData = [_cache objectForKey:url];</span><br><span class="line"></span><br><span class="line">if (cachedData) &#123;</span><br><span class="line"></span><br><span class="line">// Cache hit：存在缓存，读取</span><br><span class="line">[self useData:cachedData];</span><br><span class="line"></span><br><span class="line">&#125; else &#123;</span><br><span class="line"></span><br><span class="line">// Cache miss：没有缓存，下载</span><br><span class="line">EOCNetworkFetcher *fetcher = [[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line"></span><br><span class="line">[fetcher startWithCompletionHandler:^(NSData *data)&#123;</span><br><span class="line">[_cache setObject:data forKey:url cost:data.length];</span><br><span class="line">[self useData:data];</span><br><span class="line">&#125;];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>我们使用URL作为缓存的key，将总对象数目设置为100，将开销值设置为5MB。</p>
+<p><strong>NSPurgeableData</strong></p>
+<p><code>NSPurgeableData</code>是<code>NSMutableData</code>的子类，把它和<code>NSCache</code>配合使用效果很好。</p>
+<p>因为当系统资源紧张时，可以把保存<code>NSPurgeableData</code>的那块内存释放掉。</p>
+<p>如果需要访问某个<code>NSPurgeableData</code>对象，可以调用<code>beginContentAccess</code>方发，告诉它现在还不应该丢弃自己所占据的内存。</p>
+<p>在使用完之后，调用<code>endContentAccess</code>方法，告诉系统在必要时可以丢弃自己所占据的内存。</p>
+<p>上面这两个方法类似于“引用计数”递增递减的操作，也就是说，只有当“引用计数”为0的时候，才可以在将来删去它所占的内存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">- (void)downloadDataForURL:(NSURL*)url &#123;</span><br><span class="line"></span><br><span class="line">NSPurgeableData *cachedData = [_cache objectForKey:url];</span><br><span class="line"></span><br><span class="line">if (cachedData) &#123;</span><br><span class="line"></span><br><span class="line">// 如果存在缓存，需要调用beginContentAccess方法</span><br><span class="line">[cacheData beginContentAccess];</span><br><span class="line"></span><br><span class="line">// Use the cached data</span><br><span class="line">[self useData:cachedData];</span><br><span class="line"></span><br><span class="line">// 使用后，调用endContentAccess</span><br><span class="line">[cacheData endContentAccess];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125; else &#123;</span><br><span class="line"></span><br><span class="line">//没有缓存</span><br><span class="line">EOCNetworkFetcher *fetcher = [[EOCNetworkFetcher alloc] initWithURL:url];</span><br><span class="line"></span><br><span class="line">[fetcher startWithCompletionHandler:^(NSData *data)&#123;</span><br><span class="line"></span><br><span class="line">NSPurgeableData *purgeableData = [NSPurgeableData dataWithData:data];</span><br><span class="line">[_cache setObject:purgeableData forKey:url cost:purgeableData.length];</span><br><span class="line"></span><br><span class="line">// Don&apos;t need to beginContentAccess as it begins</span><br><span class="line">// with access already marked</span><br><span class="line">// Use the retrieved data</span><br><span class="line">[self useData:data];</span><br><span class="line"></span><br><span class="line">// Mark that the data may be purged now</span><br><span class="line">[purgeableData endContentAccess];</span><br><span class="line"></span><br><span class="line">&#125;];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>注意:</strong><br>在我们可以直接拿到purgeableData的情况下需要执行beginContentAccess方法。然而，在创建purgeableData的情况下，是不需要执行beginContentAccess，因为在创建了purgeableData之后，其引用计数会自动+1；</p>
+</blockquote>
+<h5 id="51-精简initialize-与-load的实现代码"><a href="#51-精简initialize-与-load的实现代码" class="headerlink" title="51.精简initialize 与 load的实现代码"></a>51.精简initialize 与 load的实现代码</h5><p><strong>load方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">每个类和分类在加入运行期系统时，都会调用load方法，而且仅仅调用一次，可能有些小伙伴习惯在这里调用一些方法，但是作者建议尽量不要在这个方法里调用其他方法，尤其是使用其他的类。原因是每个类载入程序库的时机是不同的，如果该类调用了还未载入程序库的类，就会很危险。</span><br><span class="line"></span><br><span class="line">**initialize方法**</span><br><span class="line"></span><br><span class="line">```+(void)initialize;</span><br></pre></td></tr></table></figure>
+<p>这个方法与<code>load</code>方法类似，区别是这个方法会在程序首次调用这个类的时候调用（惰性调用），而且只调用一次（绝对不能主动使用代码调用）。</p>
+<p>值得注意的一点是，如果子类没有实现它，它的超类却实现了，那么就会运行超类的代码：这个情况往往很容易让人忽视。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface EOCBaseClass : NSObject</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation EOCBaseClass</span><br><span class="line">+ (void)initialize &#123;</span><br><span class="line">NSLog(@&quot;%@ initialize&quot;, self);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface EOCSubClass : EOCBaseClass</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation EOCSubClass</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>当使用EOCSubClass类时，控制台会输出两次打印方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EOCBaseClass initialize</span><br><span class="line">EOCSubClass initialize</span><br></pre></td></tr></table></figure></p>
+<p>因为子类<code>EOCSubClass</code>并没有覆写<code>initialize</code>方法，那么自然会调用其父类<code>EOCBaseClass</code>的方法。<br>解决方案是通过检测类的类型的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+ (void)initialize &#123;</span><br><span class="line">if (self == [EOCBaseClass class]) &#123;</span><br><span class="line">NSLog(@&quot;%@ initialized&quot;, self);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样一来，<code>EOCBaseClass</code>的子类<code>EOCSubClass</code>就无法再调用<code>initialize</code>方法了。<br>我们可以察觉到，如果在这个方法里执行过多的操作的话，会使得程序难以维护，也可能引起其他的bug。因此，在<code>initialize</code>方法里，最好只是设置内部的数据，不要调用其他的方法，因为将来可能会给这些方法添加其它的功能，那么会可能会引起难以排查的bug。</p>
+<h5 id="52-别忘了NSTimer会保留其目标对象"><a href="#52-别忘了NSTimer会保留其目标对象" class="headerlink" title="52.别忘了NSTimer会保留其目标对象"></a>52.别忘了NSTimer会保留其目标对象</h5><p>在使用NSTimer的时候，NSTimer会生成指向其使用者的引用，而其使用者如果也引用了NSTimer，那么就会生成保留环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface EOCClass : NSObject</span><br><span class="line">- (void)startPolling;</span><br><span class="line">- (void)stopPolling;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation EOCClass &#123;</span><br><span class="line">NSTimer *_pollTimer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (id)init &#123;</span><br><span class="line">return [super init];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line">[_pollTimer invalidate];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)stopPolling &#123;</span><br><span class="line"></span><br><span class="line">[_pollTimer invalidate];</span><br><span class="line">_pollTimer = nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)startPolling &#123;</span><br><span class="line">_pollTimer = [NSTimer scheduledTimerWithTimeInterval:5.0</span><br><span class="line">target:self</span><br><span class="line">selector:@selector(p_doPoll)</span><br><span class="line">userInfo:nil</span><br><span class="line">repeats:YES];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)p_doPoll &#123;</span><br><span class="line">// Poll the resource</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>在这里，在EOCClass和_pollTimer之间形成了保留环，如果不主动调用stopPolling方法就无法打破这个保留环。像这种通过主动调用方法来打破保留环的设计显然是不好的。</p>
+<p>而且，如果通过回收该类的方法来打破此保留环也是行不通的，因为会将该类和NSTimer孤立出来，形成“孤岛”:</p>
+<p>这可能是一个极其危险的情况，因为NSTimer没有消失，它还有可能持续执行一些任务，不断消耗系统资源。而且，如果任务涉及到下载，那么可能会更糟。。</p>
+<p>那么如何解决呢？ 通过“块”来解决！</p>
+<p>通过给NSTimer增加一个分类就可以解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface NSTimer (EOCBlocksSupport)</span><br><span class="line"></span><br><span class="line">+ (NSTimer*)eoc_scheduledTimerWithTimeInterval:(NSTimeInterval)interval</span><br><span class="line">block:(void(^)())block</span><br><span class="line">repeats:(BOOL)repeats;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation NSTimer (EOCBlocksSupport)</span><br><span class="line"></span><br><span class="line">+ (NSTimer*)eoc_scheduledTimerWithTimeInterval:(NSTimeInterval)interval</span><br><span class="line">block:(void(^)())block</span><br><span class="line">repeats:(BOOL)repeats</span><br><span class="line">&#123;</span><br><span class="line">return [self scheduledTimerWithTimeInterval:interval</span><br><span class="line">target:self</span><br><span class="line">selector:@selector(eoc_blockInvoke:)</span><br><span class="line">userInfo:[block copy]</span><br><span class="line">repeats:repeats];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ (void)eoc_blockInvoke:(NSTimer*)timer &#123;</span><br><span class="line">void (^block)() = timer.userInfo;</span><br><span class="line">if (block) &#123;</span><br><span class="line">block();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>我们在NSTimer类里添加了方法，我们来看一下如何使用它：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (void)startPolling &#123;</span><br><span class="line"></span><br><span class="line">__weak EOCClass *weakSelf = self;</span><br><span class="line">_pollTimer = [NSTimer eoc_scheduledTimerWithTimeInterval:5.0 block:^&#123;</span><br><span class="line"></span><br><span class="line">EOCClass *strongSelf = weakSelf;</span><br><span class="line">[strongSelf p_doPoll];</span><br><span class="line">&#125; repeats:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>﻿在这里，创建了一个self的弱引用，然后让块捕获了这个self变量，让其在执行期间存活。<br>一旦外界指向EOC类的最后一个引用消失，该类就会被释放，被释放的同时，也会向<code>NSTimer</code>发送<code>invalidate</code>消息（因为在该类的<code>dealloc</code>方法中向<code>NSTimer</code>发送了<code>invalidate</code>消息）。</p>
+<p>而且，即使在<code>dealloc</code>方法里没有发送invalidate消息，因为块里的<code>weakSelf</code>会变成<code>nil</code>，所以<code>NSTimer</code>同样会失效。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/23/iOS多线程-GCD使用总结的副本/" rel="next" title="iOS多线程-GCD使用总结">
+                <i class="fa fa-chevron-left"></i> iOS多线程-GCD使用总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/23/Effective Objective-C 读书笔记01/" rel="prev" title="Effective Objective-C 读书笔记">
+                Effective Objective-C 读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/picture.png"
+                alt="迷途小书僮" />
+            
+              <p class="site-author-name" itemprop="name">迷途小书僮</p>
+              <p class="site-description motion-element" itemprop="description">iOS技术学习博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/66baf1c26b43" title="迷途小书僮简书" target="_blank">迷途小书僮简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://gitee.com/452567933" title="OSChina" target="_blank">OSChina</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#23-通过委托与数据源协议进行对象间通信"><span class="nav-number">1.</span> <span class="nav-text">23 . 通过委托与数据源协议进行对象间通信</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#24-将类的实现代码分散到便于管理的数个分类中"><span class="nav-number">2.</span> <span class="nav-text">24 .将类的实现代码分散到便于管理的数个分类中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#25-总是为第三方类的分类名称加前缀"><span class="nav-number">3.</span> <span class="nav-text">25 .总是为第三方类的分类名称加前缀</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#26-勿在分类中声明属性"><span class="nav-number">4.</span> <span class="nav-text">26 .勿在分类中声明属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#27-使用class-continuation分类-隐藏实现细节"><span class="nav-number">5.</span> <span class="nav-text">27. 使用class-continuation分类 隐藏实现细节</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#28-通过协议提供匿名对象"><span class="nav-number">6.</span> <span class="nav-text">28.  通过协议提供匿名对象</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#A-匿名对象作为属性"><span class="nav-number">6.1.</span> <span class="nav-text">A. 匿名对象作为属性</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#29-理解引用计数"><span class="nav-number">7.</span> <span class="nav-text">29. 理解引用计数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#B-自动释放池："><span class="nav-number">8.</span> <span class="nav-text">B.自动释放池：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#C-保留环（retain-cycle）"><span class="nav-number">9.</span> <span class="nav-text">C.保留环（retain cycle）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#30-以ARC简化引用计数"><span class="nav-number">10.</span> <span class="nav-text">30. 以ARC简化引用计数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#31-在dealloc方法中只释放引用并解除监听"><span class="nav-number">11.</span> <span class="nav-text">31. 在dealloc方法中只释放引用并解除监听</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注意"><span class="nav-number">11.1.</span> <span class="nav-text">注意:</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#32-编写“异常安全代码”时留意内存管理问题"><span class="nav-number">12.</span> <span class="nav-text">32. 编写“异常安全代码”时留意内存管理问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#在MRC环境下："><span class="nav-number">12.1.</span> <span class="nav-text">在MRC环境下：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在ARC环境下"><span class="nav-number">12.2.</span> <span class="nav-text">在ARC环境下:</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#33-以弱引用避免保留环"><span class="nav-number">13.</span> <span class="nav-text">33. 以弱引用避免保留环</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#两个对象的保留环："><span class="nav-number">13.1.</span> <span class="nav-text">两个对象的保留环：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多个对象的保留环："><span class="nav-number">13.2.</span> <span class="nav-text">多个对象的保留环：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#34-以“自动释放池快”降低内存峰值"><span class="nav-number">14.</span> <span class="nav-text">34. 以“自动释放池快”降低内存峰值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#35-用“僵尸对象”调试内存管理问题"><span class="nav-number">15.</span> <span class="nav-text">35.用“僵尸对象”调试内存管理问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#36-不要使用retainCount"><span class="nav-number">16.</span> <span class="nav-text">36.不要使用retainCount</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#37-理解“块”这一概念"><span class="nav-number">17.</span> <span class="nav-text">37.理解“块”这一概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#B-堆块"><span class="nav-number">17.1.</span> <span class="nav-text">B.堆块</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#C-全局块"><span class="nav-number">17.2.</span> <span class="nav-text">C.全局块</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#38-为常用的块类型创建typedef"><span class="nav-number">18.</span> <span class="nav-text">38.为常用的块类型创建typedef</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#39-用handler块降低代码分散程度"><span class="nav-number">19.</span> <span class="nav-text">39.用handler块降低代码分散程度</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#A-使用代理下载"><span class="nav-number">19.1.</span> <span class="nav-text">A:使用代理下载:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#B-使用块儿下载"><span class="nav-number">19.2.</span> <span class="nav-text">B.使用块儿下载:</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#40-用块引用其所属对象时不要出现保留环"><span class="nav-number">20.</span> <span class="nav-text">40.用块引用其所属对象时不要出现保留环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#41-多用派发队列，少用同步锁"><span class="nav-number">21.</span> <span class="nav-text">41.多用派发队列，少用同步锁</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#A-使用串行同步队列来将读写操作都安排到同一个队列里："><span class="nav-number">21.1.</span> <span class="nav-text">A: 使用串行同步队列来将读写操作都安排到同一个队列里：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#B-将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"><span class="nav-number">21.2.</span> <span class="nav-text">B:将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#42-多用GCD，少用performSelector系列方法"><span class="nav-number">22.</span> <span class="nav-text">42.多用GCD，少用performSelector系列方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#A-延后执行某个任务的方法："><span class="nav-number">22.1.</span> <span class="nav-text">A. 延后执行某个任务的方法：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#B-将任务放在主线程执行："><span class="nav-number">22.2.</span> <span class="nav-text">B.将任务放在主线程执行：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#43-掌握GCD及操作队列的使用时机"><span class="nav-number">23.</span> <span class="nav-text">43.掌握GCD及操作队列的使用时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#44-通过Dispath-Group机制，根据系统资源状况来执行任务"><span class="nav-number">24.</span> <span class="nav-text">44.通过Dispath Group机制，根据系统资源状况来执行任务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#45-使用dispatch-once来执行只需运行一次的线程安全代码"><span class="nav-number">25.</span> <span class="nav-text">45.使用dispatch_once来执行只需运行一次的线程安全代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#46-不要使用dispatch-get-current-queue"><span class="nav-number">26.</span> <span class="nav-text">46.不要使用dispatch_get_current_queue</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#47-熟悉系统框架"><span class="nav-number">27.</span> <span class="nav-text">47.熟悉系统框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#48-多用块枚举，少用for循环"><span class="nav-number">28.</span> <span class="nav-text">48.多用块枚举，少用for循环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#49-对自定义其内存管理语义的collection使用无缝桥接"><span class="nav-number">29.</span> <span class="nav-text">49.对自定义其内存管理语义的collection使用无缝桥接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#50-构建缓存时选用NSCache-而非NSDictionary"><span class="nav-number">30.</span> <span class="nav-text">50.构建缓存时选用NSCache 而非NSDictionary</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#51-精简initialize-与-load的实现代码"><span class="nav-number">31.</span> <span class="nav-text">51.精简initialize 与 load的实现代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#52-别忘了NSTimer会保留其目标对象"><span class="nav-number">32.</span> <span class="nav-text">52.别忘了NSTimer会保留其目标对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">迷途小书僮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
