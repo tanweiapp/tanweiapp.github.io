@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="iOS, 迷途小书僮" />
+  <meta name="keywords" content="多线程," />
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="写在前面:GCD，它是基于C语言的API，开发者只需要将任务放在block内，并指定好追加的队列，就可以完成多线程开发。属于系统级的线程管理，在Dispatch queue中执行需要执行的任务性能非常的高。以下为个人的学习笔记，大神略过！ 队列队列：Dispatch Queue是执行处理的等待队列，按照任务（block）追加到队列里的顺序，并遵循FIFO执行处理  队列分为串行队列和并行队列。 S">
+<meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS多线程-GCD使用总结">
 <meta property="og:url" content="http://yoursite.com/2018/03/23/iOS多线程-GCD使用总结/index.html">
 <meta property="og:site_name" content="迷途小书僮">
 <meta property="og:description" content="写在前面:GCD，它是基于C语言的API，开发者只需要将任务放在block内，并指定好追加的队列，就可以完成多线程开发。属于系统级的线程管理，在Dispatch queue中执行需要执行的任务性能非常的高。以下为个人的学习笔记，大神略过！ 队列队列：Dispatch Queue是执行处理的等待队列，按照任务（block）追加到队列里的顺序，并遵循FIFO执行处理  队列分为串行队列和并行队列。 S">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-23T06:24:56.000Z">
+<meta property="og:updated_time" content="2019-07-17T12:50:09.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS多线程-GCD使用总结">
 <meta name="twitter:description" content="写在前面:GCD，它是基于C语言的API，开发者只需要将任务放在block内，并指定好追加的队列，就可以完成多线程开发。属于系统级的线程管理，在Dispatch queue中执行需要执行的任务性能非常的高。以下为个人的学习笔记，大神略过！ 队列队列：Dispatch Queue是执行处理的等待队列，按照任务（block）追加到队列里的顺序，并遵循FIFO执行处理  队列分为串行队列和并行队列。 S">
@@ -219,16 +220,6 @@
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
 
       
     </ul>
@@ -301,6 +292,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -411,6 +424,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag"># 多线程</a>
+          
+        </div>
+      
 
       
       
@@ -420,8 +439,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/23/Effective Objective-C 读书笔记01/" rel="next" title="Effective Objective-C 读书笔记">
-                <i class="fa fa-chevron-left"></i> Effective Objective-C 读书笔记
+              <a href="/2018/03/23/iOS多线程-GCD使用总结的副本/" rel="next" title="iOS多线程-GCD使用总结">
+                <i class="fa fa-chevron-left"></i> iOS多线程-GCD使用总结
               </a>
             
           </div>
@@ -430,8 +449,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/23/iOS多线程-GCD使用总结的副本/" rel="prev" title="iOS多线程-GCD使用总结">
-                iOS多线程-GCD使用总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/05/React-Native-TextInput不支持输入中文解决办法/" rel="prev" title="React-Native TextInput不支持输入中文解决办法">
+                React-Native TextInput不支持输入中文解决办法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -524,12 +543,21 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
