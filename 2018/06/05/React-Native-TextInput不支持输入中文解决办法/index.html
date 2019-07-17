@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS, 迷途小书僮" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="######写在前面，最近因接手公司新项目，React-Native0.55.4版本，发现TextInput 在iOS平台上无法输入中文的问题。 ######先上一张修复后的效果图 至此，官网资料上并未有过多的提及只是针对value/defultValue属性的简单叙述 最终在github上找到了相关资料12345678910111213import React, &amp;#123;Component&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Native TextInput不支持输入中文解决办法">
+<meta property="og:url" content="http://yoursite.com/2018/06/05/React-Native-TextInput不支持输入中文解决办法/index.html">
+<meta property="og:site_name" content="迷途小书僮">
+<meta property="og:description" content="######写在前面，最近因接手公司新项目，React-Native0.55.4版本，发现TextInput 在iOS平台上无法输入中文的问题。 ######先上一张修复后的效果图 至此，官网资料上并未有过多的提及只是针对value/defultValue属性的简单叙述 最终在github上找到了相关资料12345678910111213import React, &amp;#123;Component&amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2063843-55e91add336522d3.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2063843-2a26f49f68d85154.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2063843-e37da81cc9710f15.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2063843-b645bf47b56f071e.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-17T06:21:05.129Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-Native TextInput不支持输入中文解决办法">
+<meta name="twitter:description" content="######写在前面，最近因接手公司新项目，React-Native0.55.4版本，发现TextInput 在iOS平台上无法输入中文的问题。 ######先上一张修复后的效果图 至此，官网资料上并未有过多的提及只是针对value/defultValue属性的简单叙述 最终在github上找到了相关资料12345678910111213import React, &amp;#123;Component&amp;">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2063843-55e91add336522d3.gif?imageMogr2/auto-orient/strip">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '迷途小书僮'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/05/React-Native-TextInput不支持输入中文解决办法/"/>
+
+
+
+
+
+  <title>React-Native TextInput不支持输入中文解决办法 | 迷途小书僮</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">迷途小书僮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/React-Native-TextInput不支持输入中文解决办法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="迷途小书僮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/picture.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="迷途小书僮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React-Native TextInput不支持输入中文解决办法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T16:19:09+08:00">
+                2018-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>######写在前面，最近因接手公司新项目，React-Native0.55.4版本，发现TextInput 在iOS平台上无法输入中文的问题。<br><img src="https://upload-images.jianshu.io/upload_images/2063843-55e91add336522d3.gif?imageMogr2/auto-orient/strip" alt="37463182-60980ba0-288f-11e8-82f2-281cd722f342.gif"></p>
+<p>######先上一张修复后的效果图<br><img src="https://upload-images.jianshu.io/upload_images/2063843-2a26f49f68d85154.gif?imageMogr2/auto-orient/strip" alt="37642754-b51faa54-2c61-11e8-8627-e3887cdde47f.gif"></p>
+<h6 id="至此，官网资料上并未有过多的提及只是针对value-defultValue属性的简单叙述"><a href="#至此，官网资料上并未有过多的提及只是针对value-defultValue属性的简单叙述" class="headerlink" title="至此，官网资料上并未有过多的提及只是针对value/defultValue属性的简单叙述"></a>至此，官网资料上并未有过多的提及只是针对value/defultValue属性的简单叙述</h6><p><img src="https://upload-images.jianshu.io/upload_images/2063843-e37da81cc9710f15.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WechatIMG18.jpeg"><br><img src="https://upload-images.jianshu.io/upload_images/2063843-b645bf47b56f071e.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WechatIMG19.jpeg"></p>
+<h6 id="最终在github上找到了相关资料"><a href="#最终在github上找到了相关资料" class="headerlink" title="最终在github上找到了相关资料"></a>最终在github上找到了相关资料</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123;Component&#125; from &apos;react&apos;;</span><br><span class="line">import &#123;Platform, TextInput&#125; from &apos;react-native&apos;;</span><br><span class="line"></span><br><span class="line">class MyTextInput extends Component &#123;</span><br><span class="line">shouldComponentUpdate(nextProps)&#123;</span><br><span class="line">return Platform.OS !== &apos;ios&apos; || this.props.value === nextProps.value;</span><br><span class="line">&#125;</span><br><span class="line">render() &#123;</span><br><span class="line">return &lt;TextInput &#123;...this.props&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default MyTextInput;</span><br></pre></td></tr></table></figure>
+<p>######自行加入到项目中后，试运行了下发现果然是可以的，以为至此不能输入中文的bug,应该是破掉了。</p>
+<h6 id="事实证明，我还是太年轻了，项目中由于很多都地方使用了defultValue和value属性，所以在详细的测试中发现，以上封装只能满足于value属性的情况下没问题的，那么还需要满足defultValue属性了，想到此，修改了代码后，commond-R-再行测试，perfect"><a href="#事实证明，我还是太年轻了，项目中由于很多都地方使用了defultValue和value属性，所以在详细的测试中发现，以上封装只能满足于value属性的情况下没问题的，那么还需要满足defultValue属性了，想到此，修改了代码后，commond-R-再行测试，perfect" class="headerlink" title="事实证明，我还是太年轻了，项目中由于很多都地方使用了defultValue和value属性，所以在详细的测试中发现，以上封装只能满足于value属性的情况下没问题的，那么还需要满足defultValue属性了，想到此，修改了代码后，commond + R 再行测试，perfect!"></a>事实证明，我还是太年轻了，项目中由于很多都地方使用了defultValue和value属性，所以在详细的测试中发现，以上封装只能满足于value属性的情况下没问题的，那么还需要满足defultValue属性了，想到此，修改了代码后，commond + R 再行测试，perfect!</h6><h6 id="以下为封装后的代码，各位看官，拿去不谢！"><a href="#以下为封装后的代码，各位看官，拿去不谢！" class="headerlink" title="以下为封装后的代码，各位看官，拿去不谢！"></a>以下为封装后的代码，各位看官，拿去不谢！</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123;Component&#125; from &apos;react&apos;;</span><br><span class="line">import &#123;Platform, TextInput&#125; from &apos;react-native&apos;;</span><br><span class="line"></span><br><span class="line">class MyTextInput extends Component &#123;</span><br><span class="line">shouldComponentUpdate(nextProps)&#123;</span><br><span class="line"></span><br><span class="line">return Platform.OS !== &apos;ios&apos; || (this.props.value === nextProps.value &amp;&amp;  </span><br><span class="line">(nextProps.defaultValue == undefined || nextProps.defaultValue == &apos;&apos; )) || </span><br><span class="line">(this.props.defaultValue === nextProps.defaultValue &amp;&amp;  (nextProps.value == undefined || nextProps.value == &apos;&apos; ));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render() &#123;</span><br><span class="line">return &lt;TextInput &#123;...this.props&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default MyTextInput;</span><br></pre></td></tr></table></figure>
+<p>######本人入门选手，代码有点丑陋，目前是解决了我的问题，但愿也能解决您项目中的问题，各位看官不喜勿碰！</p>
+<p>最近发现个修改源码，亲测可用<a href="https://github.com/CHANOMA/react-native/pull/3/files" target="_blank" rel="noopener">https://github.com/CHANOMA/react-native/pull/3/files</a></p>
+<blockquote>
+<ul>
+<li>参考资料<br><a href="https://github.com/facebook/react-native/pull/18456" target="_blank" rel="noopener">https://github.com/facebook/react-native/pull/18456</a><br><a href="https://reactnative.cn/docs/0.51/textinput.html#content" target="_blank" rel="noopener">https://reactnative.cn/docs/0.51/textinput.html#content</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/23/iOS多线程-GCD使用总结的副本/" rel="next" title="iOS多线程-GCD使用总结">
+                <i class="fa fa-chevron-left"></i> iOS多线程-GCD使用总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/17/React学习笔记/" rel="prev" title="React学习笔记">
+                React学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/picture.png"
+                alt="迷途小书僮" />
+            
+              <p class="site-author-name" itemprop="name">迷途小书僮</p>
+              <p class="site-description motion-element" itemprop="description">iOS技术学习博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/66baf1c26b43" title="迷途小书僮简书" target="_blank">迷途小书僮简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://gitee.com/452567933" title="OSChina" target="_blank">OSChina</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#至此，官网资料上并未有过多的提及只是针对value-defultValue属性的简单叙述"><span class="nav-number">1.</span> <span class="nav-text">至此，官网资料上并未有过多的提及只是针对value/defultValue属性的简单叙述</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#最终在github上找到了相关资料"><span class="nav-number">2.</span> <span class="nav-text">最终在github上找到了相关资料</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#事实证明，我还是太年轻了，项目中由于很多都地方使用了defultValue和value属性，所以在详细的测试中发现，以上封装只能满足于value属性的情况下没问题的，那么还需要满足defultValue属性了，想到此，修改了代码后，commond-R-再行测试，perfect"><span class="nav-number">3.</span> <span class="nav-text">事实证明，我还是太年轻了，项目中由于很多都地方使用了defultValue和value属性，所以在详细的测试中发现，以上封装只能满足于value属性的情况下没问题的，那么还需要满足defultValue属性了，想到此，修改了代码后，commond + R 再行测试，perfect!</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#以下为封装后的代码，各位看官，拿去不谢！"><span class="nav-number">4.</span> <span class="nav-text">以下为封装后的代码，各位看官，拿去不谢！</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">迷途小书僮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
